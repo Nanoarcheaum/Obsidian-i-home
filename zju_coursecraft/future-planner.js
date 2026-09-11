@@ -82,3 +82,4 @@
   root.FuturePlanner={mount,empty,normalizeState,parsePackage,validateCurriculum,mergeCourses,parseTimes};
 })(typeof window!=='undefined'?window:globalThis);
 
+
