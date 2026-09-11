@@ -1,6 +1,6 @@
-# zju_coursecraft
+# 课构 CourseCraft
 
-**zju_coursecraft**是一款完全在浏览器本地运行的大学课程规划器。它把教务系统导出的教学班信息和培养方案中的推荐学期分开处理：课程包负责提供真实教师、时间和地点，培养方案映射只负责提供“哪门课建议在哪个学期修、属于必修还是选修”。
+**课构（CourseCraft）**是一款完全在浏览器本地运行的大学课程规划器。它把教务系统导出的教学班信息和培养方案中的推荐学期分开处理：课程包负责提供真实教师、时间和地点，培养方案映射只负责提供“哪门课建议在哪个学期修、属于必修还是选修”。
 
 > 当前附带的浙大课程导出脚本按浙江大学本科教务选课页面编写。规划器本身不依赖学校网站，也可以导入符合格式的 JSON、CSV 或 XLSX。
 
@@ -29,7 +29,7 @@
 ### 1. 下载并打开网页
 
 1. 在 GitHub 页面点击 **Code → Download ZIP**。
-2. 解压下载的文件，进入 `coursecraft` 文件夹。
+2. 解压下载的文件，进入 `zju_coursecraft` 文件夹。
 3. 双击 `index.html`，或把它拖入浏览器。
 4. 不要单独移动 `index.html`；它需要同目录的 JavaScript 和 CSS 文件。
 
@@ -53,7 +53,7 @@
 
 ### 4. 导入课程包并排课
 
-1. 回到 zju_coursecraft，点击课程仓库中的 **导入课程包**。
+1. 回到课构（CourseCraft），点击课程仓库中的 **导入课程包**。
 2. 在审视弹窗中取消不需要的课程，再确认导入。
 3. 选择要规划的学期。
 4. 从右侧课程仓库拖动教学班到左侧高亮起始节次。
@@ -69,7 +69,7 @@
 - [`examples/zju-bioscience.curriculum-map.json`](examples/zju-bioscience.curriculum-map.json)：生物科学。
 - [`examples/zju-mathematics.curriculum-map.json`](examples/zju-mathematics.curriculum-map.json)：数学与应用数学。
 
-示例由特定版本培养方案整理，使用前应按照自己入学年份和学校最新方案核对。zju_coursecraft 的初始页面不预装任何培养方案或个人课程数据。
+示例由特定版本培养方案整理，使用前应按照自己入学年份和学校最新方案核对。课构（CourseCraft）的初始页面不预装任何培养方案或个人课程数据。
 
 其他专业可以把自己的培养方案 PDF 和以下文件一起交给大模型：
 
@@ -77,7 +77,7 @@
 - [`curriculum-map.template.json`](curriculum-map.template.json)：最小范例。
 - [`academic-curriculum-map.schema.json`](academic-curriculum-map.schema.json)：严格 JSON Schema。
 
-让大模型只输出 JSON，保存为 `.json` 后，在 zju_coursecraft 中点击 **导入培养方案映射**。学期标识如下：
+让大模型只输出 JSON，保存为 `.json` 后，在课构（CourseCraft）中点击 **导入培养方案映射**。学期标识如下：
 
 | 标识 | 学期 |
 | --- | --- |
@@ -90,7 +90,7 @@
 
 ## 支持的文件
 
-- 课程包：篡改猴导出的 JSON、CSV，以及 zju_zju_coursecraft/i-home 可识别的 XLSX。
+- 课程包：篡改猴导出的 JSON、CSV，以及 课构（CourseCraft）/i-home 可识别的 XLSX。
 - 培养方案：符合 `academic-curriculum-map` schema version 1 的 JSON。
 - 规划备份：页面顶部 **导出规划** 生成的完整 JSON。
 
@@ -122,5 +122,6 @@ zju_coursecraft/
 ## License
 
 [MIT](LICENSE)
+
 
 
