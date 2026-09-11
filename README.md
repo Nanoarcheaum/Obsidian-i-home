@@ -92,6 +92,12 @@ npm test
 
 i-home 1.0.0 是首个 GitHub 正式版，目前尚未提交到 Obsidian 社区插件市场。如遇到问题，请在 GitHub Issues 中附上 Obsidian 版本、操作系统和复现步骤。
 
+## 课构 CourseCraft
+
+仓库同时提供独立网页项目 **课构（CourseCraft）**，项目目录前缀为 `zju_coursecraft`。它可以配合篡改猴脚本抓取浙大选课教学班，在浏览器本地导入课程包、软加载培养方案映射，并用 7 天 × 13 节周历规划八学期及短学期课程。
+
+[查看 zju_coursecraft 使用说明](zju_coursecraft/README.md)
+
 ## License
 
 [MIT](LICENSE) © 2026 Nanoarcheaum
