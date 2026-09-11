@@ -1,9 +1,9 @@
 {
   "id": "i-home",
   "name": "i-home",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "minAppVersion": "1.7.2",
-  "description": "A calm home for tasks, linked Markdown notes, and weekly, monthly and yearly planning.",
+  "description": "A calm home for tasks, linked notes, calendars, spaced review, and academic planning.",
   "author": "Nanoarcheaum",
   "isDesktopOnly": false
 }

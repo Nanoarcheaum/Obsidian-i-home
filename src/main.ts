@@ -4,11 +4,14 @@ import html from '../ui/index.html?text';
 import css from '../ui/styles.css?text';
 import motionCss from '../ui/motion.css?text';
 import reviewCss from '../ui/reviews.css?text';
+import futureCss from '../ui/future-planner.css?text';
 import zipScript from '../ui/vendor/jszip.min.js?text';
 import modelScript from '../ui/model.js?text';
 import reviewScript from '../ui/reviews.js?text';
 import motionScript from '../ui/motion.js?text';
 import importScript from '../ui/xlsx-import.js?text';
+import futureScript from '../ui/future-planner.js?text';
+import futureDefaultScript from '../ui/future-default-plan.js?text';
 import appScript from '../ui/app.js?text';
 
 const VIEW='i-home-view';
@@ -144,8 +147,8 @@ export class HomeView extends ItemView {
       if(this.frame!==frame)return;
       const win=frame.contentWindow as FrameWindow|null,doc=frame.contentDocument;if(!win||!doc){this.resolveReady();return;}
       win.IHomeHost={initialData:{...this.plugin.store.snapshot().data,files:this.plugin.files()},version:this.plugin.manifest.version,theme:this.plugin.theme(),preferences:{...this.plugin.store.settings},setStyle:style=>this.plugin.updatePreferences({style}),setWidgets:widgets=>this.plugin.updatePreferences({widgets}),files:()=>this.plugin.files(),save:async data=>{await this.plugin.store.saveUI(data);this.ui?.syncReviews?.(this.plugin.store.reviews());},reviewAction:action=>this.plugin.reviewAction(action),restore:data=>this.plugin.restore(data),pickMarkdown:()=>this.plugin.pickMarkdown(),openMarkdown:path=>this.plugin.openMarkdown(path)};
-      const style=doc.createElement('style');style.textContent=[css,motionCss,reviewCss].join('\n');doc.head.append(style);
-      for(const source of [zipScript,modelScript,reviewScript,importScript,motionScript,appScript]){const script=doc.createElement('script');script.textContent='(function(module,exports,define){\n'+source+'\n}).call(window,undefined,undefined,undefined);';doc.body.append(script);}
+      const style=doc.createElement('style');style.textContent=[css,motionCss,reviewCss,futureCss].join('\n');doc.head.append(style);
+      for(const source of [zipScript,modelScript,reviewScript,importScript,motionScript,futureDefaultScript,futureScript,appScript]){const script=doc.createElement('script');script.textContent='(function(module,exports,define){\n'+source+'\n}).call(window,undefined,undefined,undefined);';doc.body.append(script);}
       this.resolveReady();
     },{once:true});
     frame.srcdoc=html.replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi,'').replace(/<link\b[^>]*>/gi,'');

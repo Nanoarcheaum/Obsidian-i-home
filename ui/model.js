@@ -23,7 +23,8 @@
     if(d.reviewRevision!==undefined&&(!Number.isSafeInteger(d.reviewRevision)||d.reviewRevision<0))return false;
     if(!d.tasks.every(t=>text(t.id)&&text(t.title)&&validDate(t.date)&&text(t.note)&&text(t.planId)&&typeof t.done==='boolean'&&priority(t)&&slot(t.schedule)&&Array.isArray(t.nodes)&&t.nodes.every(n=>text(n.id)&&text(n.text)&&typeof n.done==='boolean')))return false;
     if(!d.plans.every(p=>text(p.id)&&text(p.title)&&validDate(p.start)&&validDate(p.end)&&p.start<=p.end&&priority(p)))return false;
-    if(!d.courses.every(c=>text(c.id)&&text(c.name)&&text(c.place)&&text(c.code)&&text(c.teacher)&&Number.isInteger(c.day)&&c.day>=1&&c.day<=7&&Number.isInteger(c.start)&&Number.isInteger(c.end)&&c.start>=1&&c.end<=13&&c.start<=c.end&&priority(c)))return false;
+    if(!d.courses.every(c=>text(c.id)&&text(c.name)&&text(c.place)&&text(c.code)&&text(c.teacher)&&Number.isInteger(c.day)&&c.day>=1&&c.day<=7&&Number.isInteger(c.start)&&Number.isInteger(c.end)&&c.start>=1&&c.end<=13&&c.start<=c.end&&priority(c)&&(c.activeFrom===undefined||validDate(c.activeFrom))&&(c.activeTo===undefined||validDate(c.activeTo))&&(c.scheduleId===undefined||text(c.scheduleId))))return false;
+    if(d.academicPlanner!==undefined&&(!d.academicPlanner||d.academicPlanner.kind!=='zju-academic-plan'||d.academicPlanner.schemaVersion!==2||!Array.isArray(d.academicPlanner.terms)||!Array.isArray(d.academicPlanner.placements)))return false;
     if(!d.unscheduled.every(c=>text(c.name)&&text(c.code))||!d.files.every(f=>text(f.name)&&Number.isFinite(f.modified)&&Number.isFinite(f.opened)))return false;
     return ['tasks','plans','courses'].every(k=>new Set(d[k].map(x=>x.id)).size===d[k].length)&&['auto','light','dark'].includes(d.theme)&&text(d.courseSource);
   }

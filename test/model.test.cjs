@@ -9,4 +9,8 @@ assert.equal(M.progress({nodes:[{done:true},{done:false},{done:false}],done:fals
 assert.deepEqual([[90,90],[90,10],[10,90],[10,10]].map(([importance,urgency])=>M.tone({importance,urgency})),['do','plan','delegate','later']);
 const t={};M.schedule(t,13,9);assert.deepEqual(t.schedule,{start:13,duration:1});M.schedule(t,null,1);assert.equal(t.schedule,null);
 assert.equal(M.validate({version:999,tasks:[]}),false);
+const planner={kind:'zju-academic-plan',schemaVersion:2,terms:[],placements:[]};
+const base={version:1,tasks:[],plans:[],courses:[],unscheduled:[],files:[],courseSource:'test',theme:'auto'};
+assert.equal(M.validate({...base,academicPlanner:planner}),true);
+assert.equal(M.validate({...base,academicPlanner:{...planner,schemaVersion:1}}),false);
 console.log('PASS: date boundaries, leap year, progress, quadrant mapping, schedule boundary, invalid version.');

@@ -88,7 +88,7 @@
     const d=M.date(focus),year=d.getFullYear(),month=d.getMonth(),start=M.monday(focus);
     $('#viewTitle').textContent=view==='year'?`${year} 年`:view==='month'?`${year} 年 ${String(month+1).padStart(2,'0')} 月`:`${start.slice(0,4)} · ${start.slice(5).replace('-','/')} — ${M.add(start,6).slice(5).replace('-','/')}`;
     $('#viewHint').textContent={month:'点击任务展开 · 右键调整优先级 · 拖动更改日期',week:'红点拖入时间格 · 点击可精确排期 · 允许与课程重叠',year:'十二个月，一眼看见 · 点击月份深入 · 跨月计划可关联任务'}[view];
-    $('#addPlan').classList.toggle('hidden',view!=='year');$('#importCourses').classList.toggle('hidden',view!=='week');
+    $('#addPlan').classList.toggle('hidden',view!=='year');$('#importCourses').classList.toggle('hidden',view!=='week');$('#futurePlanner').classList.toggle('hidden',view!=='week');
     $$('button[data-view]').forEach(b=>b.setAttribute('aria-current',String(b.dataset.view===view)));
     const host=$('#viewHost');host.replaceChildren(view==='month'?renderMonth():view==='week'?renderWeek():renderYear());
     renderDetail();renderSide();syncSelection();
@@ -118,7 +118,7 @@
     for(let day=0;day<7;day++){
       const date=M.add(start,day),column=el('div','week-column');column.dataset.date=date;
       for(let p=1;p<=13;p++){const cell=button('','time-cell',()=>editTask(null,date,p),`${date} 第${p}节添加任务`);cell.dataset.period=String(p);column.append(cell);}
-      const courseList=data.courses.filter(c=>c.day===day+1),scheduled=data.tasks.filter(t=>t.date===date&&t.schedule);
+      const courseList=data.courses.filter(c=>c.day===day+1&&(!c.activeFrom||date>=c.activeFrom)&&(!c.activeTo||date<=c.activeTo)),scheduled=data.tasks.filter(t=>t.date===date&&t.schedule);
       courseList.forEach(c=>{const b=button('',`course-block ${M.tone(c)}`,()=>courseDetail(c));b.title=`${c.name} · ${c.place}`;b.append(el('strong','',c.name),el('span','',c.place||'地点待定'),el('small','',`第 ${c.start}–${c.end} 节`));position(b,c.start,c.end-c.start+1);if(scheduled.some(t=>t.schedule.start<=c.end&&t.schedule.start+t.schedule.duration>c.start))b.style.right='56%';b.addEventListener('contextmenu',e=>{e.preventDefault();priority(c);});column.append(b);});
       // Every overlapping task gets a lane; courses retain a separate visible lane.
       const lanes=[];scheduled.sort((a,b)=>a.schedule.start-b.schedule.start).forEach(t=>{const s=t.schedule;let lane=lanes.findIndex(end=>end<=s.start);if(lane<0)lane=lanes.length;lanes[lane]=s.start+s.duration;t._lane=lane;});
@@ -236,6 +236,22 @@
   $('#themeToggle').onchange=e=>{data.theme=e.target.value;applyTheme();persist();};matchMedia('(prefers-color-scheme: dark)').addEventListener('change',()=>{if(data.theme==='auto')applyTheme();});
   $$('[data-files]').forEach(b=>b.onclick=()=>{fileSort=b.dataset.files;$$('[data-files]').forEach(n=>n.setAttribute('aria-pressed',String(n===b)));renderSide();});
   $('#importCourses').onclick=()=>$('#xlsxInput').click();$('#xlsxInput').onchange=e=>{const f=e.target.files[0];e.target.value='';if(f)importFile(f);};$('#loadNotes').onclick=()=>$('#notesInput').click();
+  let plannerController=null;
+  function openFuturePlanner(){
+    const page=$('#futurePlannerPage');page.hidden=false;$('.app').hidden=true;
+    if(plannerController)return;
+    plannerController=window.FuturePlanner.mount({root:page,initialState:data.academicPlanner,defaultState:window.INITIAL_FUTURE_PLAN,xlsxReader:file=>window.IHomeXlsx.read(file),toast,
+      onSave:state=>change(()=>{data.academicPlanner=state;},null,false),
+      onBack:()=>{page.hidden=true;$('.app').hidden=false;render();},
+      onActivate:({termId,from,to,selected})=>change(()=>{
+        const scheduleId=`planner:${termId}:${from}:${to}`;
+        data.courses=data.courses.filter(c=>c.scheduleId!==scheduleId);
+        for(const item of selected)for(const slot of item.offering.times||[])data.courses.push({id:M.uid(),name:item.course.name,code:item.course.code||'',teacher:item.offering.teacher||'',place:item.offering.place||'',day:slot.day,start:slot.start,end:slot.end,importance:70,urgency:30,semester:termId,activeFrom:from,activeTo:to,scheduleId});
+        data.courseSource='未来课表规划 · '+termId;
+      },null,false)
+    });
+  }
+  $('#futurePlanner').onclick=openFuturePlanner;
   $('#notesInput').onchange=async e=>{const files=[...e.target.files];for(const f of files){if(f.size>5*1024*1024){toast(`${f.name} 超过5 MB，未读取`);continue;}noteContents.set(f.name,await f.text());const old=data.files.find(n=>n.name===f.name);if(old)old.modified=f.lastModified;else data.files.push({name:f.name,modified:f.lastModified,opened:0});}e.target.value='';persist();renderSide();};
   $('#exportData').onclick=()=>{const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'}),url=URL.createObjectURL(blob),a=el('a');a.href=url;a.download=`i-home-${today()}.json`;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);};$('#restoreData').onclick=()=>$('#backupInput').click();
   $('#backupInput').onchange=async e=>{const f=e.target.files[0];e.target.value='';if(!f)return;try{const restored=JSON.parse(await f.text());if(!M.validate(restored))throw Error('不是有效的 i-home 备份');restored.reviews??=[];restored.reviewRevision??=0;const d=modal($('#editor'),'恢复备份');d.append(el('p','',`${restored.tasks.length} 项任务，${restored.plans.length} 个计划，${restored.reviews.length} 篇复习记录。恢复将替换${Host?'当前笔记库中 i-home':'当前浏览器中'}的数据。`));const a=el('div','dialog-actions'),confirm=button('确认恢复','primary-button',async()=>{confirm.disabled=true;try{if(Host){const snapshot=await Host.restore(restored);data=restored;data.files=Host.files();data.reviews=snapshot.reviews;data.reviewRevision=snapshot.reviewRevision;undoStack=[];saveBlocked=false;expanded=null;applyTheme();render();$('#saveStatus').textContent='已保存到当前笔记库';toast('备份已恢复');}else{saveBlocked=false;change(()=>{data=restored;expanded=null;applyTheme();},'备份已恢复');}d.close();}catch(error){toast(error?.message||'备份未能恢复，请重试');}finally{confirm.disabled=false;}});a.append(button('取消','quiet-button',()=>d.close()),confirm);d.append(a);d.showModal();}catch(error){toast(error.message);}};

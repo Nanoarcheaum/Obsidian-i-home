@@ -1,5 +1,8 @@
 node_modules/
 release/
+.cli-raw/
+work/
+src/.main-cli.ts
 test/*.png
 test/store.cjs
 test/verify-*.cjs

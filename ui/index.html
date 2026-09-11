@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="zh-CN">
-<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="color-scheme" content="light dark"><title>i-home · 给时间一个家</title><link rel="stylesheet" href="styles.css"><link rel="stylesheet" href="motion.css"><link rel="stylesheet" href="reviews.css"></head>
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="color-scheme" content="light dark"><title>i-home · 给时间一个家</title><link rel="stylesheet" href="styles.css"><link rel="stylesheet" href="motion.css"><link rel="stylesheet" href="reviews.css"><link rel="stylesheet" href="future-planner.css"></head>
 <body class="ihome">
 <main class="app">
   <header class="masthead">
@@ -11,8 +11,8 @@
   <section class="intro"><div class="greeting"><p class="eyebrow" id="todayLine"></p><h1>让重要的事，<span>慢慢发生。</span><svg class="greeting-spark" aria-hidden="true" viewBox="0 0 40 40"><path d="M20 4v9m0 14v9M4 20h9m14 0h9M9 9l6 6m10 10 6 6M9 31l6-6m10-10 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></h1></div><button class="primary-button" id="quickAdd"><span class="add-symbol">＋</span> 新建任务 <kbd>⌘ / Ctrl K</kbd></button></section>
   <div class="workspace">
     <section class="main-stage" aria-label="时间规划">
-      <div class="stage-toolbar"><div class="date-nav"><h2 id="viewTitle"></h2><div class="date-arrows"><button class="icon-button" id="prev" aria-label="上一页">‹</button><button class="icon-button" id="next" aria-label="下一页">›</button></div><button class="quiet-button" id="today">回到今天</button></div><nav class="view-switch" aria-label="时间尺度"><button data-view="week">周</button><button data-view="month" aria-current="true">月</button><button data-view="year">年</button></nav></div>
-      <div class="view-caption"><span id="viewHint"></span><button id="addPlan" class="text-button hidden">＋ 跨月计划</button><button id="importCourses" class="text-button hidden">导入 XLSX 课表 ↗</button></div>
+  <div class="stage-toolbar"><div class="date-nav"><h2 id="viewTitle"></h2><div class="date-arrows"><button class="icon-button" id="prev" aria-label="上一页">‹</button><button class="icon-button" id="next" aria-label="下一页">›</button></div><button class="quiet-button" id="today">回到今天</button></div><div class="week-tools"><button id="futurePlanner" class="text-button hidden">课构 CourseCraft ↗</button><button id="importCourses" class="text-button hidden">导入 XLSX ↗</button></div><nav class="view-switch" aria-label="时间尺度"><button data-view="week">周</button><button data-view="month" aria-current="true">月</button><button data-view="year">年</button></nav></div>
+      <div class="view-caption"><span id="viewHint"></span><button id="addPlan" class="text-button hidden">＋ 跨月计划</button></div>
       <div id="viewHost"></div><section id="taskDetail" class="task-detail" aria-label="任务详情"></section>
       <div class="legend" aria-label="优先级图例"><span class="do">重要且紧急</span><span class="plan">重要不紧急</span><span class="delegate">紧急不重要</span><span class="later">不紧急不重要</span><span class="canvas-signature">EVERY LITTLE STEP COUNTS</span></div>
     </section>
@@ -30,7 +30,8 @@
   </div>
   <footer><span>i-home · 本地工作台</span><span id="saveStatus" role="status">本地预览</span><span class="footer-tip">一个小小的开始，也很好。</span></footer>
 </main>
+<section id="futurePlannerPage" class="future-planner-page" hidden aria-label="未来课表规划"></section>
 <dialog id="editor" aria-labelledby="editorTitle"></dialog><dialog id="priorityDialog" aria-labelledby="priorityTitle"></dialog><dialog id="noteDialog" aria-labelledby="noteTitle"></dialog>
 <input type="file" id="xlsxInput" accept=".xlsx" hidden><input type="file" id="notesInput" accept=".md,.markdown" multiple hidden><input type="file" id="backupInput" accept=".json" hidden><div id="toast" role="status" aria-live="polite"></div>
-<script src="vendor/jszip.min.js"></script><script src="seed.js"></script><script src="model.js"></script><script src="xlsx-import.js"></script><script src="motion.js"></script><script src="reviews.js"></script><script src="app.js"></script>
+<script src="vendor/jszip.min.js"></script><script src="seed.js"></script><script src="model.js"></script><script src="xlsx-import.js"></script><script src="motion.js"></script><script src="reviews.js"></script><script src="future-default-plan.js"></script><script src="future-planner.js"></script><script src="app.js"></script>
 </body></html>

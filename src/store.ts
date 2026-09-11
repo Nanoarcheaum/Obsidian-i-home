@@ -13,10 +13,11 @@ export interface ReviewSnapshot {reviews:ReviewRecord[];reviewRevision:number;me
 export interface Data {
   version:1; tasks:Task[];
   plans:{id:string;title:string;start:string;end:string;importance:number;urgency:number}[];
-  courses:{id:string;name:string;code:string;teacher:string;place:string;day:number;start:number;end:number;importance:number;urgency:number;semester?:string}[];
+  courses:{id:string;name:string;code:string;teacher:string;place:string;day:number;start:number;end:number;importance:number;urgency:number;semester?:string;activeFrom?:string;activeTo?:string;scheduleId?:string}[];
   unscheduled:{name:string;code:string;reason?:string}[];
   files:FileRecord[]; courseSource:string; theme:'auto'|'light'|'dark';
   reviews?:ReviewRecord[];reviewRevision?:number;
+  academicPlanner?:{kind:'zju-academic-plan';schemaVersion:2;terms:unknown[];placements:unknown[];[key:string]:unknown};
 }
 export const STYLES={studio:'澄光 · Studio',linen:'纸间 · Linen',slate:'夜航 · Slate',garden:'森息 · Garden'};
 export type Style=keyof typeof STYLES;
