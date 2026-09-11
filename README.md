@@ -18,10 +18,10 @@
 
 ## 安装
 
-### 从 Release 安装
+### 手动安装
 
-1. 在 GitHub 的 **Releases** 页面下载 `i-home-1.1.0.zip`。
-2. 解压后，将其中的 `i-home` 文件夹放到你的 Vault：
+1. 下载 [i-home v1.1.0 源码包](https://github.com/Nanoarcheaum/Obsidian-i-home/archive/refs/tags/v1.1.0.zip)。
+2. 解压，将文件夹重命名为 `i-home`，再放到你的 Vault：
 
    ```text
    <你的 Vault>/.obsidian/plugins/i-home/
