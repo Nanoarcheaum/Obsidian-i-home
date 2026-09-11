@@ -1,0 +1,14 @@
+import {build} from 'esbuild';
+import {readFile,mkdir,copyFile,rm} from 'node:fs/promises';
+import path from 'node:path';
+import {fileURLToPath} from 'node:url';
+process.chdir(path.dirname(fileURLToPath(import.meta.url)));
+const raw={name:'raw-text',setup(b){b.onResolve({filter:/\?text$/},args=>({path:path.resolve(args.resolveDir,args.path.slice(0,-5)),namespace:'raw-text'}));b.onLoad({filter:/.*/,namespace:'raw-text'},async args=>({contents:await readFile(args.path,'utf8'),loader:'text'}));}};
+await build({entryPoints:['src/store.ts'],outfile:'test/store.cjs',bundle:true,format:'cjs',platform:'node',target:'node18'});
+if(process.argv.includes('--tests'))process.exit(0);
+await build({entryPoints:['src/main.ts'],outfile:'main.js',bundle:true,format:'cjs',platform:'browser',target:'es2021',external:['obsidian'],plugins:[raw],minify:true,legalComments:'inline'});
+await rm('release/i-home',{recursive:true,force:true});
+await mkdir('release/i-home',{recursive:true});
+for(const f of ['main.js','manifest.json','styles.css','README.md','LICENSE'])await copyFile(f,'release/i-home/'+f);
+await copyFile('ui/vendor/JSZip-LICENSE.md','release/i-home/JSZip-LICENSE.md');
+console.log('Built i-home/release/i-home');

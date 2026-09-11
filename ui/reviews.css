@@ -1,0 +1,42 @@
+.review-widget .review-head{align-items:center;gap:8px;margin-bottom:11px}.review-title{display:flex;flex-direction:column;gap:3px}.review-title .eyebrow{font-size:7px;letter-spacing:.1em}.review-title h3{font-size:17px;font-weight:550;letter-spacing:-.02em}.review-head .text-button{margin-left:auto;font-size:10px;white-space:nowrap}.review-head .widget-drag-handle{margin-left:0}.review-rhythm{display:flex;justify-content:space-between;gap:5px;position:relative;margin:9px 0 11px}.review-rhythm:before{content:'';position:absolute;left:0;right:0;top:50%;height:1px;background:var(--line)}.review-rhythm-step{position:relative;display:flex;align-items:baseline;justify-content:center;gap:2px;border:1px solid var(--line);border-radius:6px;background:var(--surface);min-width:32px;padding:4px 5px}.review-rhythm-step b{font-size:12px;font-weight:550;color:var(--accent);font-variant-numeric:tabular-nums}.review-rhythm-step small{font-size:7px;color:var(--muted)}.review-summary{font-size:10px;color:var(--muted);margin-bottom:9px;line-height:1.6}.review-tabs{display:flex;gap:4px;background:var(--inset);border-radius:7px;padding:3px}.review-tab{flex:1;text-align:center;padding:4px 2px;font-size:9px;border-radius:5px;color:var(--muted);white-space:nowrap}.review-tab.active{background:var(--surface);color:var(--accent);box-shadow:0 1px 3px #0001}.review-list{max-height:220px;overflow:auto;scrollbar-width:thin;scrollbar-color:var(--strong) transparent;margin-top:10px;overscroll-behavior:contain}.review-empty{padding:10px 3px 6px;display:flex;flex-direction:column;gap:6px;align-items:center;text-align:center}.review-empty-mark{font-size:24px;color:var(--accent);font-family:var(--serif);line-height:1.15}.review-empty strong{font-size:11px;font-weight:500}.review-empty p{font-size:9px;max-width:210px}.review-row{border:1px solid var(--line);border-radius:9px;padding:10px;margin-bottom:8px;position:relative;background:var(--surface)}.review-row.overdue{border-color:color-mix(in srgb,var(--do) 35%,var(--line));background:color-mix(in srgb,var(--do) 3%,var(--surface))}.review-identity{display:flex;flex-direction:column;gap:5px}.review-note{padding:0;font-size:11px;text-align:left;overflow-wrap:anywhere;line-height:1.55}.review-note:hover{color:var(--accent)}.review-meta{font-size:9px;color:var(--muted)}.review-row.overdue .review-meta{color:var(--do)}.review-stages{display:flex;gap:5px;margin:8px 0}.review-stages span{height:3px;flex:1;border-radius:3px;background:var(--line)}.review-stages span.done{background:var(--accent)}.review-stages span.current{background:color-mix(in srgb,var(--accent) 40%,var(--line))}.review-actions{display:flex;justify-content:flex-end;gap:10px;align-items:center}.review-complete{font-size:10px;padding:5px 10px;border-radius:6px;background:var(--accent-soft);color:var(--accent)}.review-complete:hover{filter:brightness(.97)}.review-exit{font-size:9px;color:var(--muted);padding:4px 0}.review-exit:hover{color:var(--do)}.review-footnote{font-size:8px;color:var(--muted);line-height:1.6;margin-top:9px}.review-widget[data-review-count="0"] .review-summary{color:var(--accent)}
+@media(min-width:900px) and (max-height:800px){.review-list{max-height:170px}.review-rhythm{margin-block:8px}.review-title h3{font-size:15px}.review-empty{padding-block:6px}.review-footnote{font-size:8px}}
+
+/* Allocate space to each component; long queues scroll inside their own card. */
+@media(min-width:900px) and (min-height:768px){
+  #widgetList[data-widget-count="4"]{gap:8px;overflow:hidden;padding-bottom:1px}
+  #widgetList[data-widget-count="4"]>.rail-section{display:flex;flex-direction:column;flex:var(--widget-weight,1) 1 0;min-height:0;padding:10px 12px}
+  #widgetList[data-widget-count="4"]>.today-widget{--widget-weight:1.15}
+  #widgetList[data-widget-count="4"]>.notes-widget{--widget-weight:1.05}
+  #widgetList[data-widget-count="4"]>.plans-widget{--widget-weight:.85}
+  #widgetList[data-widget-count="4"]>.review-widget{--widget-weight:2.6}
+  #widgetList[data-widget-count="4"] .section-head{flex-shrink:0;margin-bottom:4px}
+  #widgetList[data-widget-count="4"] #todaySummary{grid-template-columns:32px 1fr;gap:0 10px;flex-shrink:0;margin:0 0 5px}
+  #widgetList[data-widget-count="4"] .today-orbit{width:32px;height:32px}
+  #widgetList[data-widget-count="4"] .today-orbit:before{inset:4px}
+  #widgetList[data-widget-count="4"] .orbit-value{font-size:11px}
+  #widgetList[data-widget-count="4"] .today-stat{gap:3px;align-self:center}
+  #widgetList[data-widget-count="4"] .today-stat strong{font-size:24px}
+  #widgetList[data-widget-count="4"] .today-stat>span{font-size:13px}
+  #widgetList[data-widget-count="4"] .today-stat small{flex-basis:auto;margin-left:4px}
+  #widgetList[data-widget-count="4"] .today-message{display:none}
+  #widgetList[data-widget-count="4"] :is(#todayTasks,#fileList,#planWidgetList,.review-list){flex:1;min-height:0;max-height:none;overflow:auto;overscroll-behavior:contain}
+  #widgetList[data-widget-count="4"] .today-task{padding-block:3px}
+  #widgetList[data-widget-count="4"] .today-empty-add{font-size:11px;margin-top:2px}
+  #widgetList[data-widget-count="4"] .tabs{flex-shrink:0;margin:0 0 3px}
+  #widgetList[data-widget-count="4"] .tabs button{padding-bottom:4px}
+  #widgetList[data-widget-count="4"] .file-row{padding-block:2px}
+  #widgetList[data-widget-count="4"] .empty-note{padding-block:4px}
+  #widgetList[data-widget-count="4"] .plan-widget-card{padding-block:6px}
+  #widgetList[data-widget-count="4"] .review-title{gap:1px}
+  #widgetList[data-widget-count="4"] .review-title h3{font-size:15px}
+  #widgetList[data-widget-count="4"] .review-rhythm{flex-shrink:0;margin:2px 0 6px}
+  #widgetList[data-widget-count="4"] .review-rhythm-step{padding-block:2px}
+  #widgetList[data-widget-count="4"] :is(.review-summary,.review-footnote){position:absolute;width:1px;height:1px;clip-path:inset(50%);overflow:hidden;white-space:nowrap;margin:0;padding:0}
+  #widgetList[data-widget-count="4"] .review-tabs{flex-shrink:0;padding:2px}
+  #widgetList[data-widget-count="4"] .review-list{margin-top:6px}
+  #widgetList[data-widget-count="4"] .review-row{padding:7px;margin-bottom:6px}
+  #widgetList[data-widget-count="4"] .review-identity{gap:2px}
+  #widgetList[data-widget-count="4"] .review-stages{margin-block:5px}
+  #widgetList[data-widget-count="4"] .review-actions{gap:8px}
+  #widgetList[data-widget-count="4"] .review-complete{padding-block:3px}
+}

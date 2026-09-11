@@ -1,0 +1,12 @@
+const assert=require('node:assert/strict');
+const M=require('../ui/model.js');
+assert.equal(M.monday('2026-01-01'),'2025-12-29');
+assert.equal(M.add('2024-02-28',1),'2024-02-29');
+assert.equal(M.validDate('2026-02-29'),false);
+assert.equal(M.validDate('2024-02-29'),true);
+assert.equal(M.progress({nodes:[],done:true}),100);
+assert.equal(M.progress({nodes:[{done:true},{done:false},{done:false}],done:false}),33);
+assert.deepEqual([[90,90],[90,10],[10,90],[10,10]].map(([importance,urgency])=>M.tone({importance,urgency})),['do','plan','delegate','later']);
+const t={};M.schedule(t,13,9);assert.deepEqual(t.schedule,{start:13,duration:1});M.schedule(t,null,1);assert.equal(t.schedule,null);
+assert.equal(M.validate({version:999,tasks:[]}),false);
+console.log('PASS: date boundaries, leap year, progress, quadrant mapping, schedule boundary, invalid version.');

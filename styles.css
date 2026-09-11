@@ -1,0 +1,12 @@
+.workspace-leaf-content[data-type="i-home-view"] .view-content.i-home-view {
+  padding: 0;
+  overflow: hidden;
+  height: 100%;
+}
+.i-home-view .i-home-frame {
+  display: block;
+  border: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--background-primary);
+}

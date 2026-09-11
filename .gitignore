@@ -1,0 +1,12 @@
+node_modules/
+release/
+test/*.png
+test/store.cjs
+test/verify-*.cjs
+test/capture-*.cjs
+test/host.html
+test/obsidian-mock.js
+TESTING.md
+*.log
+.DS_Store
+Thumbs.db

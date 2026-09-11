@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="zh-CN">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="color-scheme" content="light dark"><title>i-home · 给时间一个家</title><link rel="stylesheet" href="styles.css"><link rel="stylesheet" href="motion.css"><link rel="stylesheet" href="reviews.css"></head>
+<body class="ihome">
+<main class="app">
+  <header class="masthead">
+    <a class="brand" href="#" aria-label="i-home，回到今天"><span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="m5 11 7-6 7 6v8H5z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M10 19v-6h4v6" stroke="currentColor" stroke-width="1.7"/></svg></span><span>i-home<span class="brand-dot">.</span></span></a>
+    <span class="edition">你的时间，自有节奏</span>
+    <div class="header-tools"><button id="commandPalette" class="search-trigger" aria-label="搜索任务"><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5" stroke="currentColor" stroke-width="1.5"/><path d="m13 13 4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg><span>找一件事</span><kbd>/</kbd></button><select id="themeToggle" class="theme-select" aria-label="明暗模式"><option value="auto">明暗 · 跟随系统</option><option value="light">明暗 · 浅色</option><option value="dark">明暗 · 深色</option></select></div>
+  </header>
+  <section class="intro"><div class="greeting"><p class="eyebrow" id="todayLine"></p><h1>让重要的事，<span>慢慢发生。</span><svg class="greeting-spark" aria-hidden="true" viewBox="0 0 40 40"><path d="M20 4v9m0 14v9M4 20h9m14 0h9M9 9l6 6m10 10 6 6M9 31l6-6m10-10 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></h1></div><button class="primary-button" id="quickAdd"><span class="add-symbol">＋</span> 新建任务 <kbd>⌘ / Ctrl K</kbd></button></section>
+  <div class="workspace">
+    <section class="main-stage" aria-label="时间规划">
+      <div class="stage-toolbar"><div class="date-nav"><h2 id="viewTitle"></h2><div class="date-arrows"><button class="icon-button" id="prev" aria-label="上一页">‹</button><button class="icon-button" id="next" aria-label="下一页">›</button></div><button class="quiet-button" id="today">回到今天</button></div><nav class="view-switch" aria-label="时间尺度"><button data-view="week">周</button><button data-view="month" aria-current="true">月</button><button data-view="year">年</button></nav></div>
+      <div class="view-caption"><span id="viewHint"></span><button id="addPlan" class="text-button hidden">＋ 跨月计划</button><button id="importCourses" class="text-button hidden">导入 XLSX 课表 ↗</button></div>
+      <div id="viewHost"></div><section id="taskDetail" class="task-detail" aria-label="任务详情"></section>
+      <div class="legend" aria-label="优先级图例"><span class="do">重要且紧急</span><span class="plan">重要不紧急</span><span class="delegate">紧急不重要</span><span class="later">不紧急不重要</span><span class="canvas-signature">EVERY LITTLE STEP COUNTS</span></div>
+    </section>
+    <aside class="side-rail" aria-label="组件区">
+      <div class="component-heading"><div><span class="zone-dot" aria-hidden="true"></span><h2>组件区</h2><span class="zone-label">YOUR SPACE</span></div><button id="manageWidgets" class="quiet-button" aria-label="管理组件">＋ 组件</button></div>
+      <div id="widgetList">
+        <section class="rail-section today-widget" data-widget="today"><div class="section-head"><h2><span class="widget-symbol" aria-hidden="true">◷</span> 今日概览</h2><span class="eyebrow">TODAY</span></div><div id="todaySummary"></div><div id="todayTasks" class="today-tasks"></div></section>
+        <section class="rail-section notes-widget" data-widget="notes"><div class="section-head"><h2><span class="widget-symbol" aria-hidden="true">▤</span> 笔记</h2><button class="text-button" id="loadNotes">＋ 关联</button></div><p class="muted small note-helper">想法和行动，在这里相遇。</p><div class="tabs" aria-label="文件排序"><button data-files="opened" aria-pressed="true">最近打开</button><button data-files="modified" aria-pressed="false">最近修改</button></div><div id="fileList"></div></section>
+        <section class="rail-section plans-widget" data-widget="plans"><div class="section-head"><h2><span class="widget-symbol" aria-hidden="true">↗</span> 长期计划</h2><span class="eyebrow">ON THE WAY</span></div><div id="planWidgetList"></div></section>
+        <section class="rail-section review-widget" data-widget="ebbinghaus"><div class="section-head"><h2>Ebbinghaus</h2></div></section>
+      </div>
+      <p id="widgetEmpty" class="empty-note" hidden>一块属于你的留白。<br>点击「＋ 组件」，开始搭建。</p>
+      <div class="rail-note"><p>数据留在本地，灵感自由生长。</p><div><button id="exportData" class="text-button">备份数据 ↓</button><button id="restoreData" class="text-button">恢复备份 ↑</button></div></div>
+    </aside>
+  </div>
+  <footer><span>i-home · 本地工作台</span><span id="saveStatus" role="status">本地预览</span><span class="footer-tip">一个小小的开始，也很好。</span></footer>
+</main>
+<dialog id="editor" aria-labelledby="editorTitle"></dialog><dialog id="priorityDialog" aria-labelledby="priorityTitle"></dialog><dialog id="noteDialog" aria-labelledby="noteTitle"></dialog>
+<input type="file" id="xlsxInput" accept=".xlsx" hidden><input type="file" id="notesInput" accept=".md,.markdown" multiple hidden><input type="file" id="backupInput" accept=".json" hidden><div id="toast" role="status" aria-live="polite"></div>
+<script src="vendor/jszip.min.js"></script><script src="seed.js"></script><script src="model.js"></script><script src="xlsx-import.js"></script><script src="motion.js"></script><script src="reviews.js"></script><script src="app.js"></script>
+</body></html>

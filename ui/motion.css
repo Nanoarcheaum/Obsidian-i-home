@@ -1,0 +1,13 @@
+/* The real task and its moving counterpart never paint at the same time. */
+.ihome-morph-hidden{visibility:hidden!important}
+.ihome-morph-layer{position:fixed;inset:0;z-index:19;pointer-events:none;overflow:hidden;contain:strict}
+.ihome-task-morph{position:absolute;left:0;top:0;box-sizing:border-box;overflow:visible;transform-origin:0 0;pointer-events:none;will-change:transform,width,height;isolation:isolate}
+.ihome-morph-surface{position:absolute;inset:0;box-sizing:border-box;pointer-events:none}
+.ihome-morph-content{position:absolute;left:0;top:0;width:100%;height:100%;overflow:hidden;border-radius:inherit;pointer-events:none;transform-origin:0 0}
+.ihome-view-ghost{position:fixed;z-index:18;overflow:hidden;pointer-events:none;box-sizing:border-box;contain:layout paint;scrollbar-width:none}
+.ihome-view-ghost *{pointer-events:none!important;animation:none!important;transition:none!important}
+.mini-day.has-task:after{display:none}
+.mini-task-dots{position:absolute;left:2px;right:2px;bottom:1px;height:3px;display:flex;align-items:center;justify-content:center;gap:1px;pointer-events:none}
+.mini-task-dot{display:block;flex:0 1 3px;min-width:.5px;height:3px;border-radius:50%;background:var(--tone);box-sizing:border-box}
+.mini-day.is-today .mini-task-dot{background:currentColor}
+@media(prefers-reduced-motion:reduce){.ihome-morph-layer,.ihome-view-ghost{display:none}}
