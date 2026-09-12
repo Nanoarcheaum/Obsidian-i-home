@@ -1,5 +1,7 @@
 # i-home
 
+愿景：实现 Obsidian 日常工作流 all in one 的需求
+
 一个安静、可组合的 Obsidian 时间主页，把任务、日历、笔记、复习节奏与学期规划放在同一张画布里。
 
 ![i-home 界面预览](docs/preview.png)
